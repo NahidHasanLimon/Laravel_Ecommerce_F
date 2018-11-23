@@ -4,13 +4,14 @@ namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use App\Models\Product;
 
 class ProductsController extends Controller
 {
   public function index()
   {
-    $products=Product::orderBy('id','desc')->get();
+    $products=Product::orderBy('id','desc')->paginate(2);
     return view('FrontEnd.pages.product.index')->with('products',$products);
   }
   public function show($slug)

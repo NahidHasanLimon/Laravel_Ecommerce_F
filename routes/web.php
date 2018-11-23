@@ -1,5 +1,9 @@
 <?php
-
+if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+// Ignores notices and reports all other kinds... and warnings
+error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+// error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
+}
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +40,10 @@ Route::group(['prefix' =>'admin'],function(){
 
 Route::get('/','BackEnd\PagesController@index')->name('admin.index');
 //product Routes
+
+
   Route::group(['prefix' =>'/products'],function(){
+
     Route::get('/','BackEnd\ProductsController@index')->name('admin.products');
 
 
@@ -53,6 +60,30 @@ Route::get('/','BackEnd\PagesController@index')->name('admin.index');
     Route::post('/delete/{id}','BackEnd\ProductsController@delete')->name('admin.product.delete');
 
     });
+
+
+    //Category Routes
+
+
+    Route::group(['prefix' =>'/categories'],function(){
+
+    Route::get('/','BackEnd\CategoriesController@index')->name('admin.categories');
+
+
+
+    Route::get('/create','BackEnd\CategoriesController@create')->name('admin.category.create');
+
+    Route::post('/store','BackEnd\CategoriesController@store')->name('admin.category.store');
+
+
+    Route::get('/edit/{id}','BackEnd\CategoriesController@edit')->name('admin.category.edit');
+
+    Route::post('/category/edit/{id}','BackEnd\CategoriesController@update')->name('admin.category.update');
+
+    Route::post('/category/delete/{id}','BackEnd\CategoriesController@delete')->name('admin.category.delete');
+
+    });
+
 
 
 });
