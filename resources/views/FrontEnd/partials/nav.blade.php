@@ -34,20 +34,70 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+      <li class="nav-item ">
+        <form class="form-inline my-2 my-lg-0" action="{{  route('search')}}" method="get">
+
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="search"placeholder="Enter Your Query" aria-label="search Text" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+
+        </form>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
 
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Enter Your Query" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
-    </div>
-  </div>
+<!-- Login Right Nav Bar -->
 
-    </form>
+ <ul class="navbar-nav ml-auto">
+   <li class="nav-item">
+       <a class="nav-link" href="{{ route('carts') }}">
+        <!--</span> -->
+         <button type="btn btn-danger" name="button">
+           <span class="mt-1"> Cart</span>
+           <span class="badge badge-warning">
+
+             {{App\Models\Cart::totalItems()  }}
+
+           </span>
+         <i class="fas fa-cart-plus"></i></button>
+       </a>
+   </li>
+   @guest
+       <li class="nav-item">
+           <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+       </li>
+       <li class="nav-item">
+           @if (Route::has('register'))
+               <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+           @endif
+       </li>
+   @else
+       <li class="nav-item dropdown">
+
+           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              <img src="{{ App\Helpers\ImageHelper::getUserImage(Auth::user()->id) }}" class="img rounded-circle"style="width:40px" >
+               {{ Auth::user()->username }} <span class="caret"></span>
+           </a>
+
+           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+             <a class="dropdown-item" href="{{ route('user.dashboard') }}">My Dashboard</a>
+               <a class="dropdown-item" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                   {{ __('Logout') }}
+               </a>
+
+               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                   @csrf
+               </form>
+           </div>
+       </li>
+   @endguest
+ </ul>
+<!-- End Login Right Nav Bar -->
+
   </div>
 </div>
   <!-- End of container Class -->

@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('FrontEnd.layouts.master')
 
 @section('content')
-<div class="container">
+<div class="container mt-2">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -12,18 +12,105 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('first_name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>
+
+                                @if ($errors->has('last_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+
+                                @if ($errors->has('username'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="phone_no" class="col-md-4 col-form-label text-md-right">{{ __('Phone No') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone_no" type="text" class="form-control{{ $errors->has('phone_no') ? ' is-invalid' : '' }}" name="phone_no" value="{{ old('phone_no') }}" required autofocus>
+
+                                @if ($errors->has('phone_no'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone_no') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="street_Address" class="col-md-4 col-form-label text-md-right">{{ __('Street Address') }}</label>
+
+                            <div class="col-md-6">
+                                <textarea id="street_Address" type="text" class="form-control{{ $errors->has('street_address') ? ' is-invalid' : '' }}" name="street_address"  required autofocus>
+                                </textarea>
+                                @if ($errors->has('street_address'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('street_address') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="phone_no" class="col-md-4 col-form-label text-md-right">{{ __('Division') }}</label>
+
+                            <div class="col-md-6">
+                              <select class="form-control" name="division_id" id="division_id" class="form-control{{ $errors->has('division_id') ? ' is-invalid' : '' }}">
+                                <option value="">Select Your Division</option>
+                                @foreach($divisions as $division)
+                                <option value="{{$division->id}}" > {{ $division->name}}</option>
+                                @endforeach
+                              </select>
+                                @if ($errors->has('division_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('division_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="District" class="col-md-4 col-form-label text-md-right">{{ __('District') }}</label>
+
+                            <div class="col-md-6">
+                              <select class="form-control" name="district_id" id="district_id" class="form-control{{ $errors->has('district_id') ? ' is-invalid' : '' }}">
+                                <option value="">Select Your District</option>
+                                @foreach($districts as $district)
+                                <option value="{{$district->id}}" > {{ $district->name}}</option>
+                                @endforeach
+                              </select>
+                                @if ($errors->has('district_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('district_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

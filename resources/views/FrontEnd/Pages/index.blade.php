@@ -10,11 +10,7 @@
   <div class="row">
     <!-- Start of Sidebar -->
     <div class="col-md-4">
-      <div class="list-group">
- <a href="#" class="list-group-item list-group-item-action">First item</a>
- <a href="#" class="list-group-item list-group-item-action">Second item</a>
- <a href="#" class="list-group-item list-group-item-action">Third item</a>
-</div>
+      @include('FrontEnd.partials.product_sidebar')
 <!-- end of Sidebar -->
     </div>
     <!-- Start of Middle Div -->
@@ -22,7 +18,7 @@
 
 <!-- Start of widget Featured -->
       <div class="widget">
-        <h3>All Products</h3>
+        <h3>All Product</h3>
         @include('FrontEnd.pages.product.partials.all_products')
 
 

@@ -10,7 +10,7 @@
   <div class="row">
     <!-- Start of Sidebar -->
     <div class="col-md-4">
-  @include('FrontEnd/partials/product_sidebar')
+      @include('FrontEnd.partials.product_sidebar')
 <!-- end of Sidebar -->
     </div>
     <!-- Start of Middle Div -->

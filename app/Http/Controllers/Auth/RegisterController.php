@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Division;
+use App\Models\District;
+use App\Models\User;
+use Notification;
+use App\Notifications\VerifyRegistration;
 
 class RegisterController extends Controller
 {
@@ -28,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -39,7 +45,14 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
+    // @Override
+    // Overide The Method
+    public function showRegistrationForm()
+    {
+       $divisions=Division::orderBy('id','desc')->get();
+        $districts=District::orderBy('name','asc')->get();
+        return view('auth.register',compact('districts','divisions'));
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,9 +62,30 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            // 'first_name' => ['required', 'string', 'max:30'],
+            // 'last_name' => ['nullable', 'string', 'max:30'],
+            // 'division_id' => ['required', 'numeric', 'max:3'],
+            // 'district_id' => ['required', 'numeric', 'max:3'],
+            //
+            // 'phone_no' => ['required', 'string', 'max:15'],
+            // 'username' => ['required', 'string', 'max:50'],
+            // 'street_Address' => ['required', 'string', 'max:100'],
+            // 'phone_no' => ['required', 'string', 'max:15'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'password' => ['required', 'string', 'min:6', 'confirmed'],
+
+            'first_name' => 'required|string|max:30',
+            'last_name' => 'nullable|string|max:30',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'username' => 'required|string|max:20|unique:users',
+
+            'division_id' => 'required|numeric',
+            'district_id' => 'required|numeric',
+            'phone_no' => 'required|max:15',
+            'street_address' => 'required|max:100',
+
+
         ]);
     }
 
@@ -61,12 +95,28 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $user= User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'username' => $request->username,
+            'division_id' => $request->division_id,
+            'district_id' => $request->district_id,
+            'phone_no' => $request->phone_no,
+            'street_address' => $request->street_address,
+            'ip_address' => request()->ip(),
+            'remember_token' => str_random(50),
+            'status' => 0,
+
+
         ]);
+          // $user=notify(new VerifyRegistration($user));
+          $user->notify(new VerifyRegistration($user));
+          session()->flash('success','A Confirmation Mail Has been Sent to your Email');
+          return redirect('/');
+
     }
 }

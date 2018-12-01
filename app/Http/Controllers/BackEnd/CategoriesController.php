@@ -91,12 +91,12 @@ public function update(Request $request,$id)
   $request->validate([
   'name' => 'required|max:255',
 
-    'image' => 'required|image',
+
 
   ],
   [
     'name.required'=>'Please Provide A Category Name',
-    'image.image' =>'Please Provide A Valid Image  with JPG,JPEG,PNG Extension',
+    
   ]);
      $category= Category::find($id);
 

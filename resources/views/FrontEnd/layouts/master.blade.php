@@ -5,6 +5,7 @@
 
     @include('FrontEnd.partials/styles')
     <title>
+      @yield('title','Ecommerce Site')
     </title>
   </head>
   <body>
@@ -15,6 +16,9 @@
 
 <!-- navigaetion include -->
 @include('FrontEnd.partials.nav')
+
+<!-- For Viewing Message and errors -->
+@include('FrontEnd.partials.messages')
 
 
 <!-- Start of Sidebar + Content -->

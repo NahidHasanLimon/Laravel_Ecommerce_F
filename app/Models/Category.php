@@ -10,4 +10,22 @@ class Category extends Model
     {
       return $this->belongsTo(Category::class,'parent_id');
     }
+    public function products()
+
+    {
+      return $this->hasMany(Product::class);
+    }
+    // Defines the selected category parent or not || Child or Not
+    public static function ParentOrNotCategory($parent_id,$child_id)
+
+    {
+      $categories=Category::where('id',$child_id)->where('parent_id',$parent_id)->get();
+      if (!is_null($categories)) {
+        return true;
+      }
+      else {
+        return false;
+      }
+
+    }
 }

@@ -31,6 +31,35 @@
     <label for="exampleInputPassword1">quantity</label>
     <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Enter Product quantity">
   </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Select Your Category</label>
+   <select class="form-control" name="category_id">
+    <option value="0">Please Select your Category</option>
+    @foreach(App\Models\Category::orderBy('name','asc')->where('parent_id',0)->get() as $parent_category )
+
+    <option value="{{  $parent_category->id   }}">{{  $parent_category->name  }}</option>
+        @foreach (App\Models\Category::orderBy('name','asc')->where('parent_id',$parent_category->id)->get() as $child_category )
+          <option value="{{  $child_category->id   }}">- - - > {{  $child_category->name  }}</option>
+          @endforeach
+    @endforeach
+  </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Select Your Brand</label>
+  <select class="form-control" name="brand_id">
+    <option value="0">Please Select your Brand</option>
+
+    @foreach (App\Models\Brand::orderBy('name','asc')->get() as $brand )
+
+    <option value="{{  $brand->id   }}">{{  $brand->name  }}</option>
+
+
+    @endforeach
+  </select>
+  </div>
+
   <!--Only For One Image
    <div class="form-group">
     <label for="exampleInputPassword1">Product Images</label>

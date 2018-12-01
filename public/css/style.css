@@ -1,4 +1,12 @@
+html{
+height: 100%;
 
+}
+body{
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 5rem;
+}
 /* Override CSS */
 .bg-light{
   background-color: #02aadd!important;
@@ -13,8 +21,41 @@ margin-top: 20px;
   min-height: 120px;
   /* max-width: 50px; */
 }
+
+/* Sidebar Child rows */
+.child-rows{
+padding-left: 20px;
+
+}
+.child-rows a.list-group-item{
+border-left: 0px!important;
+
+}
+.list-group-item.active{
+z-index: 2;
+color: #fff;
+background-color: #o2aad;
+border-radius: 0px!important;
+border-color: #02aadd;
+
+}
+/* Produc CSS */
+
+.product-item{
+ background: #dcf4fc
+
+}
+
+/* End Product CSS */
 .footer-bottom{
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
   background: #02aadd;
+  position: absolute;
+  bottom:0;
+  right: 0;
+  left: 0;
+}
+.pointer {
+  cursor: pointer;
 }

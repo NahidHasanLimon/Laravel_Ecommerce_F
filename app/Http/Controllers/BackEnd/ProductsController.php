@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Brand;
 use Image;
+use File;
 
 use App\Models\Productimage;
 
@@ -20,6 +22,7 @@ class  ProductsController extends Controller
   }
   public function create()
   {
+
        return view('BackEnd.pages.product.create');
   }
 
@@ -32,6 +35,9 @@ class  ProductsController extends Controller
   {
     $product=Product::find($id);
   if (!is_null($product)) {
+    if (File::exists('images/products/'.$product->images->image)) {
+      File::delete('images/products/'.$product->images->image);
+    }
     $product->delete();
 
 
@@ -47,8 +53,10 @@ class  ProductsController extends Controller
     $request->validate([
     'title' => 'required|max:255',
     'description' => 'required',
-      'price' => 'required|numeric',
-        'quantity' => 'required|numeric',
+    'price' => 'required|numeric',
+      'quantity' => 'required|numeric',
+      'category_id' => 'required|numeric',
+      'brand_id' => 'required|numeric',
 
 ]);
        $product= new Product;
@@ -57,8 +65,8 @@ class  ProductsController extends Controller
        $product->desscription=$request->description;
        $product->price=$request->price;
        $product->quantity=$request->quantity;
-        $product->category_id=1;
-        $product->brand_id=1;
+        $product->category_id=$request->category_id;
+        $product->brand_id=$request->brand_id;
         $product->admin_id=1;
         $product->slug=str_slug($request->title);
         $product->save();
@@ -120,6 +128,8 @@ class  ProductsController extends Controller
     'description' => 'required',
       'price' => 'required|numeric',
         'quantity' => 'required|numeric',
+        'category_id' => 'required|numeric',
+        'brand_id' => 'required|numeric',
 
 ]);
 
@@ -130,6 +140,8 @@ class  ProductsController extends Controller
        $product->desscription=$request->description;
        $product->price=$request->price;
        $product->quantity=$request->quantity;
+       $product->category_id=$request->category_id;
+       $product->brand_id=$request->brand_id;
 
       $product->save();
 

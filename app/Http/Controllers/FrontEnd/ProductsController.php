@@ -11,12 +11,19 @@ class ProductsController extends Controller
 {
   public function index()
   {
-    $products=Product::orderBy('id','desc')->paginate(2);
+    $products=Product::orderBy('id','desc')->paginate(8);
     return view('FrontEnd.pages.product.index')->with('products',$products);
   }
   public function show($slug)
   {
-    // $products=Product::orderBy('id','desc')->get();
-    // return view('pages.product.index')->with('products',$products);
+
+    $product=Product::where('slug',$slug)->first();
+    if (!is_null($product)) {
+      return view('FrontEnd.pages.product.show',compact('product'));
+    }
+    else {
+    session()->flash('errors','Sorry!! This Product Unavailable');
+      return redirect()->route('products');
+    }
   }
 }
