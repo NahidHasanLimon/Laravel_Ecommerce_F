@@ -75,33 +75,55 @@
   <td class="left">
   <strong>Discount (0.0%)</strong>
   </td>
-  <td class="right">{{$total_price}}</td>
+  @php
+  $discount=App\Models\Settings::first()->discount;
+  $total_price -=$shipping_cost;
+  @endphp
+  <td class="right">{{$discount}}</td>
   </tr>
   <tr>
   <td class="left">
    <strong>Shipping Cost ()</strong>
   </td>
-  <td class="right">100</td>
+  @php
+  $shipping_cost=App\Models\Settings::first()->shipping_cost;
+  $total_price +=$shipping_cost;
+  @endphp
+  <td class="right">{{$shipping_cost}}</td>
+  </tr>
+  <tr>
+  <td class="left">
+   <strong>Vat()</strong>
+  </td>
+  @php
+  $vat=App\Models\Settings::first()->vat;
+  $total_price -=$vat;
+  @endphp
+  <td class="right">{{$vat}}</td>
   </tr>
   <tr>
   <td class="left">
   <strong>Total</strong>
   </td>
+<!-- </tr>
+  <tr> -->
   <td class="right">
-  <strong>$7.477,36</strong>
+  <strong>{{$total_price}}</strong>
   </td>
   </tr>
   </tbody>
   </table>
-
+<span class="border-top my-3"></span>
   </div>
 
   </div>
 
   </div>
   <!-- Shhippin Address -->
-  <div class="row mb-4">
+  <div class="row mb-4 border border-light">
   <div class="col-sm-6">
+      <h6 class="mb-3"><strong>Shipping Address:</strong></h6>
+
     <form method="POST" action="{{ route('user.profile.update') }}">
         @csrf
 
@@ -147,21 +169,70 @@
         </div>
 
 
-    </form>
+
+
+
   </div>
 
   <div class="col-sm-6">
-  <h6 class="mb-3">To:</h6>
-  <div>
-  <strong>Bob Mart</strong>
+  <h6 class="mb-3"><strong>Payment Method:</strong></h6>
+  <div class="form-group row">
+      <label for="District" class="col-md-4 col-form-label text-md-right">{{ __('Select A Payment Method') }}</label>
+
+      <div class="col-md-6">
+        <select class="form-control" name="payments" id="payments" class="form-control">
+          <option value="">Select Your Payment Method</option>
+          @foreach($payments as $payment)
+          <option value="{{ $payment->short_name }}" > {{ $payment->name}}</option>
+          @endforeach
+        </select>
+
+      </div>
   </div>
-  <div>Attn: Daniel Marek</div>
-  <div>43-190 Mikolow, Poland</div>
-  <div>Email: marek@daniel.com</div>
-  <div>Phone: +48 123 456 789</div>
-  </div>
+  <!-- Start After Select  -->
+    @foreach($payments as $payment)
+    <!-- -{{$payment->short_name}} -->
+<div class="container text-light bg-dark">
 
 
+    @if ($payment->short_name=="CashIn")
+   <div id="payment_{{$payment->short_name}}"class="hidden mb-3 pt-20">
+    <p>Click to finish Order</p>
+       <small>The Product Delivery Accomplished Within Two Working days</small>
+     </div>
+       @else
+       <div id="payment_{{$payment->short_name}}"class="hidden mb-3">
+       <h3>{{$payment->name}}</h3>
+      <p>
+        <strong>{{$payment->name}} No: {{$payment->no}}</strong><br>
+        <strong>Payment Type: {{$payment->type}}</strong><br>
+      </p>
+      <div class="alert alert-success">
+        please send Money and Give Your Transaction Number:
+      </div>
+      <input type="text" name="" id="transaction_id" class="form-control" value=""placeholder="Enter Your Transaction ID or Code">
+    </div>
+    @endif
+    </div>
+
+
+    @endforeach
+  <!-- End After Select  -->
+
+
+  <div class="form-group row mb-0 mt-3">
+      <div class="col-md-6 offset-md-4">
+          <a href="{{route('carts')}}" class="btn btn-info"><i class="fas fa-angle-double-down"></i>Update Cart</a>
+
+          <button type="submit" class="btn btn-warning">
+            finish Order
+          </button>
+      </div>
+  </div>
+
+  </div>
+</form>
+</div>
 
   </div>
   <!-- End of Shiiping Address -->
@@ -178,4 +249,27 @@
 
 
 </div>
-@endsection
+  @endsection
+      @section('Customized_scripts')
+
+      <script type="text/javascript">
+        $("#payments").change(function(){
+          $payment_method=$("#payments").val();
+          if ($payment_method=="CashIn") {
+            $("#payment_CashIn").removeClass('hidden');
+            $("#payment_Bkash").addClass('hidden');
+            $("#payment_Rocket").addClass('hidden');
+
+          } else if($payment_method=="Bkash") {
+            $("#payment_Bkash").removeClass('hidden');
+              $("#payment_CashIn").addClass('hidden');
+              $("#payment_Rocket").addClass('hidden');
+          } else if($payment_method=="Rocket") {
+            $("#payment_Rocket").removeClass('hidden');
+              $("#payment_CashIn").addClass('hidden');
+                $("#payment_Bkash").addClass('hidden');
+          }
+
+        })
+      </script>
+  @endsection

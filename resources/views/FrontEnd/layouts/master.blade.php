@@ -39,5 +39,8 @@
 
 @include('FrontEnd.partials.scripts')
 
+<!-- For Customized Script Just creae a section  -->
+@yield('Customized_scripts')
+
   </body>
 </html>

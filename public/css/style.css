@@ -59,3 +59,7 @@ border-color: #02aadd;
 .pointer {
   cursor: pointer;
 }
+.hidden{
+  display: none;
+
+}

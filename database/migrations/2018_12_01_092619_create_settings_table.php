@@ -19,6 +19,8 @@ class CreateSettingsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->unsignedInteger('shipping_cost')->default(100);
+            $table->unsignedInteger('discount')->default(0);
+            $table->unsignedInteger('vat')->default(0);
             $table->timestamps();
         });
     }
