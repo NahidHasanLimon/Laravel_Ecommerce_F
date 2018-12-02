@@ -39,7 +39,7 @@
     {{$cart->product->title}}
 
   </td>
-  <td class="left">
+  <td class="left strong">
   {{substr($cart->product->desscription, 0, 40)}}
   </td>
 
@@ -124,7 +124,7 @@
   <div class="col-sm-6">
       <h6 class="mb-3"><strong>Shipping Address:</strong></h6>
 
-    <form method="POST" action="{{ route('user.profile.update') }}">
+    <form method="POST" action="{{ route('checkouts.store') }}">
         @csrf
 
         <div class="form-group row">
@@ -158,6 +158,16 @@
         </div>
 
         <div class="form-group row">
+            <label for="street_Address" class="col-md-4 col-form-label text-md-right">{{ __('Message(Optional)') }}</label>
+
+            <div class="col-md-6">
+                <textarea rows="4" id="message" type="text" class="form-control" name="message"  >
+
+                </textarea>
+
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="street_Address" class="col-md-4 col-form-label text-md-right">{{ __('Shipping Address') }}</label>
 
             <div class="col-md-6">
@@ -177,10 +187,10 @@
   <div class="col-sm-6">
   <h6 class="mb-3"><strong>Payment Method:</strong></h6>
   <div class="form-group row">
-      <label for="District" class="col-md-4 col-form-label text-md-right">{{ __('Select A Payment Method') }}</label>
+      <label for="payment_method" class="col-md-4 col-form-label text-md-right">{{ __('Select A Payment Method') }}</label>
 
       <div class="col-md-6">
-        <select class="form-control" name="payments" id="payments" class="form-control">
+        <select class="form-control" name="payment_method_id" id="payments" class="form-control">
           <option value="">Select Your Payment Method</option>
           @foreach($payments as $payment)
           <option value="{{ $payment->short_name }}" > {{ $payment->name}}</option>
@@ -192,31 +202,34 @@
   <!-- Start After Select  -->
     @foreach($payments as $payment)
     <!-- -{{$payment->short_name}} -->
-<div class="container text-light bg-dark">
+<div class="container text-light bg-success mb-6 mt-6 ml-6 mr-6">
 
 
     @if ($payment->short_name=="CashIn")
-   <div id="payment_{{$payment->short_name}}"class="hidden mb-3 pt-20">
+   <div id="payment_{{$payment->short_name}}"class="hidden mb-3 pt-20 mb-6 mt-6 ml-6 mr-6">
+     <h5>CashIn Payment System:</h5>
+     <hr>
     <p>Click to finish Order</p>
        <small>The Product Delivery Accomplished Within Two Working days</small>
      </div>
        @else
-       <div id="payment_{{$payment->short_name}}"class="hidden mb-3">
+       <div id="payment_{{$payment->short_name}}"class="hidden mb-3 mb-6 mt-6 ml-6 mr-6">
        <h3>{{$payment->name}}</h3>
       <p>
         <strong>{{$payment->name}} No: {{$payment->no}}</strong><br>
-        <strong>Payment Type: {{$payment->type}}</strong><br>
+        <strong>Account Type: {{$payment->type}}</strong><br>
       </p>
       <div class="alert alert-success">
         please send Money and Give Your Transaction Number:
       </div>
-      <input type="text" name="" id="transaction_id" class="form-control" value=""placeholder="Enter Your Transaction ID or Code">
+
     </div>
     @endif
     </div>
 
 
     @endforeach
+    <input type="text" name="transaction_id" id="transaction_id" class="form-control hidden" value="" placeholder="Enter Your Transaction ID or Code">
   <!-- End After Select  -->
 
 
@@ -224,8 +237,8 @@
       <div class="col-md-6 offset-md-4">
           <a href="{{route('carts')}}" class="btn btn-info"><i class="fas fa-angle-double-down"></i>Update Cart</a>
 
-          <button type="submit" class="btn btn-warning">
-            finish Order
+          <button type="submit" class="btn btn-danger">
+             Order Now
           </button>
       </div>
   </div>
@@ -255,6 +268,7 @@
       <script type="text/javascript">
         $("#payments").change(function(){
           $payment_method=$("#payments").val();
+
           if ($payment_method=="CashIn") {
             $("#payment_CashIn").removeClass('hidden');
             $("#payment_Bkash").addClass('hidden');
@@ -264,10 +278,12 @@
             $("#payment_Bkash").removeClass('hidden');
               $("#payment_CashIn").addClass('hidden');
               $("#payment_Rocket").addClass('hidden');
+              $("#transaction_id").removeClass('hidden');
           } else if($payment_method=="Rocket") {
-            $("#payment_Rocket").removeClass('hidden');
-              $("#payment_CashIn").addClass('hidden');
+              $("#payment_Rocket").removeClass('hidden');
+               $("#payment_CashIn").addClass('hidden');
                 $("#payment_Bkash").addClass('hidden');
+                $("#transaction_id").removeClass('hidden');
           }
 
         })

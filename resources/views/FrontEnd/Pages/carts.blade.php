@@ -1,7 +1,9 @@
 @extends('FrontEnd.layouts.master')
 @section('content')
-<div class="container margin-top-20">
+<div class="container margin-top-20 mb-20">
+
   <h2>My Cart Items</h2>
+
 
 
 <table class="table table-bordered table stripe">
@@ -40,7 +42,8 @@ $total_price=0;
     <td>
       <form class="form-inline" action="{{  route('carts.update',$cart->id) }}" method="post">
         @csrf
-      <input class="form-control"type="number" name="product_quantity" value="{{$cart->product_quantity}}">
+
+      <input class="form-control"type="number" name="product_quantity" value="{{$cart->product_quantity}}"  >
       <button class="btn btn-success ml-2"type="submit" name="update">Update</button>
     </form>
   </td>
@@ -69,12 +72,13 @@ $total_price=0;
     <td>{{$total_price}}</td>
   </tr>
     </tbody>
-</table>
- <div class="float-right">
-   <a href="{{route('products')}}" class="btn btn-warning btn-lg"><i class="fas fa-cart-plus"></i>Continue Shopping</a>
-   <a href="{{route('checkouts')}}" class="btn btn-info btn-lg">CheckOut</a>
 
- </div>
+</table>
+<div class="float-right">
+  <a href="{{route('products')}}" class="btn btn-warning btn-lg"><i class="fas fa-cart-plus"></i>Continue Shopping</a>
+  <a href="{{route('checkouts')}}" class="btn btn-info btn-lg">CheckOut</a>
+
+</div>
 
 </div>
 @endsection

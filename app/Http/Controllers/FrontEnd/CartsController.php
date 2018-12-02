@@ -31,8 +31,6 @@ class CartsController extends Controller
     {
 
 
-
-
       $this->validate($request,[
         'product_id'=>'required'
       ],
