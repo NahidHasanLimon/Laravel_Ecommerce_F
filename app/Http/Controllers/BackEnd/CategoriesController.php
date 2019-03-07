@@ -11,7 +11,10 @@ use Image;
 use File;
 class CategoriesController extends Controller
 {
-
+  public function __construct()
+  {
+      $this->middleware('auth:admin');
+  }
     public function index()
     {
       $categories=Category::orderBy('id','desc')->get();
@@ -96,7 +99,7 @@ public function update(Request $request,$id)
   ],
   [
     'name.required'=>'Please Provide A Category Name',
-    
+
   ]);
      $category= Category::find($id);
 

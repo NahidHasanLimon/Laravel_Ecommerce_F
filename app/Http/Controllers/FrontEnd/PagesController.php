@@ -12,7 +12,7 @@ class PagesController extends Controller
 {
   public function index()
   {
-    $products=Product::orderBy('id','desc')->paginate(6);
+    $products=Product::orderBy('id','desc')->paginate(12);
     return view('FrontEnd.pages.index',compact('products'));
   }
 

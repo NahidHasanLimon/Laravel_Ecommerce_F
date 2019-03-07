@@ -11,20 +11,22 @@
       </div>
       <div class="card-body">
 
-        <table class="table center-aligned-table">
-          @php $i=1; @endphp
+        <table class="table center-aligned-table" id="dataTable">
+            <thead>
+
           <tr>
             <th class="border-bottom-0">#No:</th>
             <th class="border-bottom-0">Name </th>
             <th class="border-bottom-0">Division </th>
-
-
-
             <th class="border-bottom-0">Action </th>
           </tr>
+              </thead>
+              <tbody>
+
+
             @foreach ($districts as $district)
           <tr>
-            <td>{{ $i }}</td>
+            <td>{{ $loop->index+1 }}</td>
             <td>{{$district->name}}</td>
             <td width="20%">{{$district->division->name}}</td>
 
@@ -63,8 +65,17 @@
 
             </td>
           </tr>
-              @php $i++; @endphp
           @endforeach
+        </tbody>
+        <tfoot>
+
+      <tr>
+        <th class="border-bottom-0">#No:</th>
+        <th class="border-bottom-0">Name </th>
+        <th class="border-bottom-0">Division </th>
+        <th class="border-bottom-0">Action </th>
+      </tr>
+    </tfoot>
         </table>
 
       </div>

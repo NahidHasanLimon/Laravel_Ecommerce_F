@@ -5,5 +5,6 @@
 <!-- End plugin css for this page -->
 <!-- inject:css -->
 <link rel="stylesheet" href="{{asset('css/admin_style.css')}}">
+<link rel="stylesheet" href="{{asset('css/datatables.min.css')}}">
 <!-- endinject -->
 <link rel="shortcut icon" href="images/favicon.png" />

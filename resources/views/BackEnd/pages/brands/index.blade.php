@@ -10,20 +10,23 @@
         Manage Brand
       </div>
       <div class="card-body">
-        
-        <table class="table center-aligned-table">
-          @php $i=1; @endphp
+
+        <table class="table center-aligned-table" id="dataTable">
+        <thead>
+
           <tr>
             <th class="border-bottom-0">#No:</th>
             <th class="border-bottom-0">Brand Name</th>
             <th class="border-bottom-0" >Description</th>
             <th class="border-bottom-0">Image</th>
-
             <th class="border-bottom-0">Action </th>
           </tr>
+
+        </thead>
+        <tbody>
             @foreach ($brands as $brand)
           <tr>
-            <td>{{ $i }}</td>
+            <td>{{ $loop->index+1 }}</td>
             <td>{{$brand->name}}</td>
             <td width="20%">{{str_limit($brand->description, $limit = 17, $end = '  .....')}}</td>
             <td >
@@ -88,8 +91,20 @@
 <!-- End of Details Modal -->
             </td>
           </tr>
-              @php $i++; @endphp
+
           @endforeach
+        </tbody>
+        <tfoot>
+
+          <tr>
+            <th class="border-bottom-0">#No:</th>
+            <th class="border-bottom-0">Brand Name</th>
+            <th class="border-bottom-0" >Description</th>
+            <th class="border-bottom-0">Image</th>
+            <th class="border-bottom-0">Action </th>
+          </tr>
+
+        </tfoot>
         </table>
 
       </div>

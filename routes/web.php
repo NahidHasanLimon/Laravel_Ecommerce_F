@@ -83,10 +83,36 @@ Route::get('/category/{id}','FrontEnd\CategoriesController@show')->name('categor
 
 
 
-
+/*
+Start All Admin Routes
+*/
 Route::group(['prefix' =>'admin'],function(){
 
 Route::get('/','BackEnd\PagesController@index')->name('admin.index');
+
+Route::get('/login','Auth\Admin\LoginController@showLoginForm')->name('admin.login');
+
+
+/**Start  Email Send Password Admin **/
+Route::get('/password/reset','Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+
+Route::post('/password/resetPost','Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+
+/** End of PAssword Admin */
+
+/**Start  Password Reset Link  Admin **/
+Route::get('/password/reset/{token}','Auth\Admin\ResetPasswordController@showResetForm')->name('admin.password.reset');
+
+Route::post('/password/reset','Auth\Admin\ResetPasswordController@reset')->name('admin.password.reset.post');
+
+/** End of PAssword Admin */
+
+Route::post('/login/submit','Auth\Admin\LoginController@login')->name('admin.login.submit');
+
+// Admin Login Routes
+Route::get('/logout','Auth\Admin\LoginController@logout')->name('admin.logout');
+
+
 
 
 //Satrt Admin product Routes
@@ -112,6 +138,25 @@ Route::get('/','BackEnd\PagesController@index')->name('admin.index');
     });
 //End  Admin product Routes
 
+
+    // Satrt of Admin Orders Routes
+
+
+    Route::group(['prefix' =>'/orders'],function(){
+
+    Route::get('/','BackEnd\OrdersController@index')->name('admin.orders');
+
+    Route::get('view/{id}','BackEnd\OrdersController@show')->name('admin.order.show');
+
+
+    Route::post('/order/delete/{id}','BackEnd\OrdersController@delete')->name('admin.order.delete');
+
+    Route::post('/order/paid/{id}','BackEnd\OrdersController@paid')->name('admin.order.paid');
+    Route::post('/order/completed/{id}','BackEnd\OrdersController@completed')->name('admin.order.completed');
+
+    });
+
+//End of  Admin category Routes
     // Satrt of Admin Category Routes
 
 

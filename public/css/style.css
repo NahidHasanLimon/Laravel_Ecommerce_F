@@ -7,9 +7,39 @@ body{
   min-height: 100%;
   padding-bottom: 5rem;
 }
+.nav-link{
+  font-size: 18px!important;
+  color: #F1EDED!important;
+}
+.navbar-brand{
+  font-size: 18px!important;
+  color: #d9d9d9!important;
+}
+.formStyle{
+  display: inline-block!important;
+}
+.FixedCheckoutButton{
+  padding-bottom: 5rem;
+  padding-right: 5rem;
+
+
+}
+.btn-warning{
+    color: #212529;
+    background-color: #f5080875!important;
+    border-color: #ff4a4a94!important;
+}
+.navbarCustom{
+  color: #563d7c;
+}
+.priceTag{
+  margin-top:  5rem;
+  margin-bottom: : 5rem;
+  height:25px;
+}
 /* Override CSS */
 .bg-light{
-  background-color: #02aadd!important;
+  background-color: #4267b2!important;
 }
 
 .margin-top-20{
@@ -30,11 +60,13 @@ padding-left: 20px;
 .child-rows a.list-group-item{
 border-left: 0px!important;
 
+
 }
 .list-group-item.active{
 z-index: 2;
 color: #fff;
 background-color: #o2aad;
+
 border-radius: 0px!important;
 border-color: #02aadd;
 
@@ -50,11 +82,12 @@ border-color: #02aadd;
 .footer-bottom{
   padding: 20px;
   margin-top: 10px;
-  background: #02aadd;
+  background: #4267b2;
   position: absolute;
   bottom:0;
   right: 0;
   left: 0;
+  color: #F1EDED!important;
 }
 .pointer {
   cursor: pointer;

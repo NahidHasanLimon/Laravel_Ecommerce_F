@@ -11,7 +11,7 @@ class ProductsController extends Controller
 {
   public function index()
   {
-    $products=Product::orderBy('id','desc')->paginate(8);
+    $products=Product::orderBy('id','desc')->paginate(12);
     return view('FrontEnd.pages.product.index')->with('products',$products);
   }
   public function show($slug)

@@ -2,6 +2,15 @@
 <script src="{{asset('js/jquery-3.2.1.slim.min.js')}}" ></script>
 <script src="{{asset('js/popper.min.js')}}" ></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/datatables.min.js')}}"></script>
+ <script>
+
+ $(document).ready( function () {
+    $('#dataTable').DataTable();
+} );
+
+ </script>
+
 <!-- endinject -->
 <!-- Plugin js for this page-->
 <script src="node_modules/chart.js/dist/Chart.min.js"></script>

@@ -1,5 +1,8 @@
 @extends('FrontEnd.layouts.master')
 @section('content')
+<div class="FixedCheckoutButton">
+
+
 <div class="container margin-top-20 mb-20">
 
   <h2>My Cart Items</h2>
@@ -13,8 +16,8 @@
       <th>Product Title</th>
       <th>Product Image</th>
       <th>Product Quantity</th>
-      <th>Unit Price</th>
-      <th>Sub Total Price</th>
+      <th>Unit Price(Taka)</th>
+      <th>Sub Total Price(Taka)</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -32,7 +35,8 @@ $total_price=0;
       @if($cart->product->images->count()>0)
 
          <a href="#">
-           <img src="{{ asset('images/products/'.$cart->product->images->first()->image)  }}" alt="$cart->product->title-" width="60px">
+           <img src="{{ asset('images/products/'.$cart->product->images->first()->image)  }}"
+            alt="$cart->product->title-" width="80px">
          </a>
       @endif
 
@@ -43,12 +47,12 @@ $total_price=0;
       <form class="form-inline" action="{{  route('carts.update',$cart->id) }}" method="post">
         @csrf
 
-      <input class="form-control"type="number" name="product_quantity" value="{{$cart->product_quantity}}"  >
-      <button class="btn btn-success ml-2"type="submit" name="update">Update</button>
+      <input class="form-control"type="number" name="product_quantity" value="{{$cart->product_quantity}}" style="width:65px; " >
+      <button class="btn btn-success ml-2"type="submit" name="update" style="width:65px;">Update</button>
     </form>
   </td>
   <td>
-      {{  $cart->product->price }} Taka
+      {{  $cart->product->price }}
   </td>
   <td>
     @php
@@ -69,16 +73,17 @@ $total_price=0;
   <tr>
     <td colspan="4"></td>
     <td colspan="">Total Ammount:</td>
-    <td>{{$total_price}}</td>
+    <td><strong>{{$total_price}}</strong></td>
   </tr>
     </tbody>
 
 </table>
-<div class="float-right">
+<div class="float-right mb-5">
   <a href="{{route('products')}}" class="btn btn-warning btn-lg"><i class="fas fa-cart-plus"></i>Continue Shopping</a>
   <a href="{{route('checkouts')}}" class="btn btn-info btn-lg">CheckOut</a>
 
 </div>
 
+</div>
 </div>
 @endsection

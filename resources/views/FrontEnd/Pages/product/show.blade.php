@@ -49,8 +49,8 @@
 <!-- Start of widget Featured -->
       <div class="widget">
         <h3 class="card-title"> {{$product->title}}<br></h3>
-        <p><mark>Category: <span class="badge badge-info">{{$product->category->name}}</mark></span><br>
-        <mark>Brand: <span class="badge badge-info">{{$product->brand->name}}</mark><span><br>
+        <p style="font-weight:900;"><mark>Category: <span class="badge badge-info">{{$product->category->name}}</mark></span><br>
+        <mark>Brand: <span class="badge badge-info mt-3">{{$product->brand->name}}</mark><span><br>
        <h5>{{$product->price}} Taka</h5>
        <h4>
          <span class="badge badge-primary">

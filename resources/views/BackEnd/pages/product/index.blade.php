@@ -11,8 +11,8 @@
       </div>
       <div class="card-body">
         @include('BackEnd.partials.messages')
-        <table class="table center-aligned-table">
-          @php $i=1; @endphp
+        <table class="table center-aligned-table" id="dataTable">
+        <thead>
           <tr>
             <th class="border-bottom-0"></th>
             <th class="border-bottom-0">Product Title</th>
@@ -20,9 +20,12 @@
             <th class="border-bottom-0">Quantity</th>
             <th class="border-bottom-0">Action </th>
           </tr>
+                  </thead>
+                  <tbody>
+
             @foreach ($products as $products)
           <tr>
-            <td>{{ $i }}</td>
+          <td>{{ $loop->index+1 }}</td>
             <td>{{$products->title}}</td>
             <td>{{$products->price}}</td>
             <td>{{$products->quantity}}</td>
@@ -57,8 +60,17 @@
 <!-- End of Delete Modal -->
             </td>
           </tr>
-              @php $i++; @endphp
           @endforeach
+        </tbody>
+        <tfoot>
+          <tr>
+            <th class="border-bottom-0"></th>
+            <th class="border-bottom-0">Product Title</th>
+            <th class="border-bottom-0">Price</th>
+            <th class="border-bottom-0">Quantity</th>
+            <th class="border-bottom-0">Action </th>
+          </tr>
+        </tfoot>
         </table>
 
       </div>
